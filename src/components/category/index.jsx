@@ -1,19 +1,27 @@
-import React, { useEffect } from "react";
-import MovieService from "../../services/MovieService";
-import { useMovies } from "../../hooks/useMovies";
-import { useInfiniteQuery } from "react-query";
+import CategoryItem from "./category-item";
 
+export default function Category({data, isLoading, isError, isFetchingNextPage, fetchNextPage}) {
+    const handleLoadMore = () => {
+        if(!isFetchingNextPage) {
+            fetchNextPage()
+        }
+    }
+    if (isLoading) {
+        return <div>Loading</div>;
+    }
+    if (isError) {
+        return <div>Something went wrong</div>;
+    }
 
-export default function Category() {
-    
     return (
-        <div>
-            <header>
-                <h1>Popular</h1>
-            </header>
-            <ul>
-                
+        <div className="w-full py-6 px-24">
+            <ul className="py-6 grid grid-cols-6 gap-8">
+                {data.map((item) => (
+                    <CategoryItem key={item.id} item={item} />
+                ))}
             </ul>
+            {!isFetchingNextPage && <div className="text-red text-right" onClick={handleLoadMore}>More...</div>}
         </div>
     );
 }
+

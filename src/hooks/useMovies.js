@@ -1,21 +1,25 @@
 import { useInfiniteQuery } from "react-query";
 import MovieService from "../services/MovieService";
 
-export function useMovies(filter) {
+export function useMovies(key,filter) {
+    let posts = []
     const movie = new MovieService
-    const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery({
-        queryKey: ["posts", filter],
-        queryFn: ({ pageParam }) => movie.getMovies(filter, pageParam),
+    const { data, isLoading, isError, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+        queryKey: [key, filter],
+        queryFn: ({ pageParam=1 }) => movie.getMovies(filter, pageParam),
         getNextPageParam: (lastPage, allPages) => {
             return allPages.length + 1;
         },
     });
-    const posts = data?.pages?.map((page) => page.results).flat() || [];
-
+    if(!isLoading && !isError) {
+        posts = data?.pages?.map((page) => page.results).flat();
+    }
+    console.log(isFetchingNextPage);
     return {
         posts,
         isLoading,
         fetchNextPage,
-        isError
+        isError,
+        isFetchingNextPage
     };
 }

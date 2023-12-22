@@ -107,8 +107,16 @@ iframe {
     height: 100%;
 }
 
-@layer components {
-    .active {
-        @apply h-full py-5 border-red border-solid border-b-2;
+/* @layer components {
+    #mainNavbar a.active {
+        @apply text-red font-bold;
     }
-}
+
+    #categoryNav a.active {
+        @apply text-white text-2xl font-bold;
+    }
+} */
+
+
+    
+

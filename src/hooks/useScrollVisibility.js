@@ -1,37 +1,34 @@
 import { useEffect, useState } from "react";
 
 export const useScrollVisibility = () => {
-    const [prevPositionScroll, setPrevPositionScroll] = useState(window.pageYOffset);
     const [visible, setVisible] = useState(true);
-    const [scrollTimeout, setScrollTimeout] = useState(null);
     const [isBehaviorTriggered, setIsBehaviorTriggered] = useState(false);
 
     useEffect(() => {
+        let prevPositionScroll = window.pageYOffset;
+        let scrollTimeout = null;
+
         const handleScroll = () => {
             const currentScrollPosition = window.pageYOffset;
             setVisible(prevPositionScroll > currentScrollPosition || currentScrollPosition < 50);
-            setPrevPositionScroll(currentScrollPosition);
             setIsBehaviorTriggered(prevPositionScroll > 60);
+            prevPositionScroll = currentScrollPosition;
 
             clearTimeout(scrollTimeout);
-
             if (currentScrollPosition !== 0) {
-                setScrollTimeout(
-                    setTimeout(() => {
-                        setVisible(false);
-                    }, 2000)
-                );
+                scrollTimeout = setTimeout(() => {
+                    setVisible(false);
+                }, 2000);
             }
         };
 
         const resetScrollTimeout = () => {
             clearTimeout(scrollTimeout);
+            const currentScrollPosition = window.pageYOffset;
             if (currentScrollPosition !== 0) {
-                setScrollTimeout(
-                    setTimeout(() => {
-                        setVisible(false);
-                    }, 2000)
-                );
+                scrollTimeout = setTimeout(() => {
+                    setVisible(false);
+                }, 2000);
             }
         };
 
@@ -43,7 +40,7 @@ export const useScrollVisibility = () => {
             window.removeEventListener("wheel", resetScrollTimeout);
             clearTimeout(scrollTimeout);
         };
-    }, [prevPositionScroll, scrollTimeout]);
+    }, []);
 
     return { visible, isBehaviorTriggered };
 };
