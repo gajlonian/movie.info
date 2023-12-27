@@ -2,12 +2,17 @@ import { imageService } from "../../services/imageService";
 import { StyledHero } from "../../styles/hero";
 import Banner from "../Banner";
 import { useTrendingMovie } from "../../hooks/useTrendingMovie";
+import AlertError from "../AlertError";
+import Loading from "../Loading";
 
 export default function Hero() {
     const { posts, isLoading, isError } = useTrendingMovie();
 
     if (isLoading) {
-        return <div>loading...</div>;
+        return <Loading height={'h-screen'} />
+    }
+    if(isError) {
+        return <AlertError />
     }
     const post = posts.slice(0, 1)[0];
 

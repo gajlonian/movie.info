@@ -13,6 +13,7 @@ body {
 body::-webkit-scrollbar {
     display: none;
     width: 0; /* Cacher la scrollbar pour les navigateurs basés sur WebKit (Chrome, Safari) */
+    scroll-behavior: smooth;
 }
 
 html {
@@ -107,16 +108,4 @@ iframe {
     height: 100%;
 }
 
-/* @layer components {
-    #mainNavbar a.active {
-        @apply text-red font-bold;
-    }
-
-    #categoryNav a.active {
-        @apply text-white text-2xl font-bold;
-    }
-} */
-
-
-    
 

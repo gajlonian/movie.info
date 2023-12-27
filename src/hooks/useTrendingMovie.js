@@ -1,12 +1,12 @@
 import { useQuery } from "react-query";
 import MovieService from "../services/MovieService";
 
-export const useTrendingMovie = () => {
+export const useTrendingMovie = (filter='day') => {
     let posts;
     const movie = new MovieService();
     const { data, isLoading, isError } = useQuery({
-        queryKey: ["trendingMovie"],
-        queryFn: () => movie.getTrendingMovie(),
+        queryKey: ["trendingMovie", filter],
+        queryFn: () => movie.getTrendingMovie(filter),
     });
     
     if(!isLoading && !isError) {

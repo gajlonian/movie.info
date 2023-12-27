@@ -11,7 +11,7 @@ export class EnpointBuilder {
         return `movie/${movieId}?language=${language}`
     }
 
-    trendingMoviesEndpoint (language=this.defaultLanguage) {
-        return `trending/movie/day?language=${language}`
+    trendingMoviesEndpoint (filter, language=this.defaultLanguage) {
+        return `trending/movie/${filter}?language=${language}`
     }
 }

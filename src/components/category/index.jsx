@@ -1,27 +1,25 @@
-import CategoryItem from "./category-item";
+import AlertError from "../AlertError";
+import Loading from "../Loading";
+import CategoryList from "./CategoryList";
+import CategoryFooter from './CategoryFooter'
 
-export default function Category({data, isLoading, isError, isFetchingNextPage, fetchNextPage}) {
+export default function Category({ data, isLoading, isError, isFetchingNextPage, fetchNextPage }) {
     const handleLoadMore = () => {
-        if(!isFetchingNextPage) {
-            fetchNextPage()
+        if (!isFetchingNextPage) {
+            fetchNextPage();
         }
-    }
+    };
     if (isLoading) {
-        return <div>Loading</div>;
+        return <Loading height={"h-screen"} />;
     }
     if (isError) {
-        return <div>Something went wrong</div>;
+        return <AlertError />;
     }
 
     return (
         <div className="w-full py-6 px-24">
-            <ul className="py-6 grid grid-cols-6 gap-8">
-                {data.map((item) => (
-                    <CategoryItem key={item.id} item={item} />
-                ))}
-            </ul>
-            {!isFetchingNextPage && <div className="text-red text-right" onClick={handleLoadMore}>More...</div>}
+            <CategoryList data={data} />
+            <CategoryFooter isFetchingNextPage={isFetchingNextPage} handleLoadMore={handleLoadMore} />
         </div>
     );
 }
-

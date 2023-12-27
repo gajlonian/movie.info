@@ -33,8 +33,8 @@ class MovieService {
      * @param {string} language - The language code in format : 'en-US', 'fr-Fr', etc
      * @returns Promise<Object>
      */
-    getTrendingMovie(language = this.defaultLanguage) {
-        const endpoint = this.endpoints.trendingMoviesEndpoint(language);
+    getTrendingMovie(filter, language = this.defaultLanguage) {
+        const endpoint = this.endpoints.trendingMoviesEndpoint(filter,language);
         return this.makeRequest(endpoint);
     }
 }

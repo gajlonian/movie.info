@@ -14,7 +14,6 @@ export function useMovies(key,filter) {
     if(!isLoading && !isError) {
         posts = data?.pages?.map((page) => page.results).flat();
     }
-    console.log(isFetchingNextPage);
     return {
         posts,
         isLoading,

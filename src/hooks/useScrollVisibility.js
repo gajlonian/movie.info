@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export const useScrollVisibility = () => {
     const [visible, setVisible] = useState(true);
     const [isBehaviorTriggered, setIsBehaviorTriggered] = useState(false);
-
+    
     useEffect(() => {
         let prevPositionScroll = window.pageYOffset;
         let scrollTimeout = null;
@@ -33,13 +33,14 @@ export const useScrollVisibility = () => {
         };
 
         window.addEventListener("scroll", handleScroll);
-        window.addEventListener("wheel", resetScrollTimeout);
+        window.addEventListener("mousewheel", resetScrollTimeout);
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
-            window.removeEventListener("wheel", resetScrollTimeout);
+            window.removeEventListener("mousewheel", resetScrollTimeout);
             clearTimeout(scrollTimeout);
         };
+        
     }, []);
 
     return { visible, isBehaviorTriggered };

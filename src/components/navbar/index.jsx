@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useScrollVisibility } from "../../hooks/useScrollVisibility";
 import CustomNavLink from "../ui/CustomNavLink";
 
@@ -5,7 +6,13 @@ export default function Navbar() {
     const { visible, isBehaviorTriggered } = useScrollVisibility();
     const isVisible = visible ? "" : "-translate-y-full transition-all delay-100";
     const bgColor = isBehaviorTriggered && visible ? "bg-black bg-opacity-70 border-none" : "";
-    const isActiveStyle = 'font-bold text-red'
+    const isActiveStyle = "font-bold text-red";
+    const handleClick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
 
     return (
         <nav
@@ -15,7 +22,9 @@ export default function Navbar() {
             <div className="px-24 h-16 flex items-center justify-between content-center">
                 <div className="">Movie.Info</div>
                 <ul className="flex items-center gap-14 h-full">
-                    <CustomNavLink linkText={"Home"} linkTo={"/"} style={isActiveStyle} />
+                    <li onClick={handleClick}>
+                        <CustomNavLink linkText={"Home"} linkTo={"/"} style={isActiveStyle} />
+                    </li>
                     <CustomNavLink linkText={"Movies"} linkTo={"/movies"} style={isActiveStyle} />
                     <CustomNavLink linkText={"Tv Shows"} linkTo={"/tvShows"} style={isActiveStyle} />
                     <CustomNavLink linkText={"My List"} linkTo={"/my_list"} style={isActiveStyle} />
