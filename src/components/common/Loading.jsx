@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Loading({height}) {
+export default function Loading({ height }) {
     return (
         <div className={`w-full ${height} flex justify-center items-center`}>
             <div aria-label="Loading..." role="status">

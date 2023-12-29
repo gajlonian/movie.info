@@ -2,8 +2,8 @@ import { imageService } from "../../services/imageService";
 import { StyledHero } from "../../styles/hero";
 import Banner from "../Banner";
 import { useTrendingMovie } from "../../hooks/useTrendingMovie";
-import AlertError from "../AlertError";
-import Loading from "../Loading";
+import AlertError from "../common/AlertError";
+import Loading from "../common/Loading";
 
 export default function Hero() {
     const { posts, isLoading, isError } = useTrendingMovie();

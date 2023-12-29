@@ -1,6 +1,6 @@
 import { imageService } from "../../services/imageService";
 
-export default function CategoryItem({ item }) {
+export default function Item({ item }) {
     return (
         <li className="cursor-pointer" >
             <img className="rounded" src={imageService("w500", `${item.poster_path}`)} alt="poster" />

@@ -1,6 +1,6 @@
-import { useMovies } from "../hooks/useMovies";
-import { useTvShow } from "../hooks/useTvShow";
-import Category from "./category-movie";
+import { useMovies } from "../../hooks/useMovies";
+import { useTvShow } from "../../hooks/useTvShow";
+import ContentList from "../content-list";
 
 export default function UpcomingMovie() {
     const { posts, isError, isLoading, isFetchingNextPage, fetchNextPage } = useMovies(
@@ -12,7 +12,7 @@ export default function UpcomingMovie() {
     console.log(data);
 
     return (
-        <Category
+        <ContentList
             data={posts}
             isError={isError}
             isLoading={isLoading}

@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/navbar";
 import Hero from "../components/Hero";
-import CategorySection from "./CategorySection";
+import FeaturedMovies from "./FeaturedMovies";
 
 export default function Root() {
     return (
@@ -9,7 +9,8 @@ export default function Root() {
             <Navbar />
             <Hero />
             <div className="pt-[calc(100vh-4rem)] bg-black">
-                <CategorySection />
+                {/* <CategorySection /> */}
+                <FeaturedMovies />
             </div>
         </div>
     );

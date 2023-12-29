@@ -1,5 +1,5 @@
-import { useMovies } from "../hooks/useMovies";
-import Category from "./category-movie";
+import { useMovies } from "../../hooks/useMovies";
+import ContentList from "../content-list";
 
 export default function NowPlayingMovie() {
     const { posts, isError, isLoading, fetchNextPage, isFetchingNextPage } = useMovies(
@@ -8,7 +8,7 @@ export default function NowPlayingMovie() {
     );
     
     return (
-        <Category
+        <ContentList
             data={posts}
             isError={isError}
             isLoading={isLoading}

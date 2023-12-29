@@ -1,7 +1,7 @@
-import TrendingSection from '../components/TrendingSection'
-import NowPlayingSection from '../components/NowPlayingSection'
-import PopularSection from '../components/PopularSection'
-import UpcomingSection from '../components/UpcomingSection'
+import TrendingSection from './TrendingSection'
+import NowPlayingSection from './NowPlayingSection'
+import PopularSection from './PopularSection'
+import UpcomingSection from './UpcomingSection'
 
 
 export default function ({ view }) {

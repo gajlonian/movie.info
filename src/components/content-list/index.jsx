@@ -1,9 +1,9 @@
-import AlertError from "../AlertError";
-import Loading from "../Loading";
-import CategoryList from "./CategoryList";
+import AlertError from "../common/AlertError";
+import Loading from "../common/Loading";
 import CategoryFooter from './CategoryFooter'
+import ListItem from "./ListItem";
 
-export default function Category({ data, isLoading, isError, isFetchingNextPage, fetchNextPage }) {
+export default function ContentList({ data, isLoading, isError, isFetchingNextPage, fetchNextPage }) {
     const posts = data?.slice(0,12)
     const handleLoadMore = () => {
         if (!isFetchingNextPage) {
@@ -19,7 +19,7 @@ export default function Category({ data, isLoading, isError, isFetchingNextPage,
 
     return (
         <div className="w-full py-6 px-24">
-            <CategoryList data={posts} />
+            <ListItem data={posts} />
             {/* <CategoryFooter isFetchingNextPage={isFetchingNextPage} handleLoadMore={handleLoadMore} /> */}
         </div>
     );
