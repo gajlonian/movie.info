@@ -4,6 +4,7 @@ import CategoryList from "./CategoryList";
 import CategoryFooter from './CategoryFooter'
 
 export default function Category({ data, isLoading, isError, isFetchingNextPage, fetchNextPage }) {
+    const posts = data?.slice(0,12)
     const handleLoadMore = () => {
         if (!isFetchingNextPage) {
             fetchNextPage();
@@ -18,8 +19,8 @@ export default function Category({ data, isLoading, isError, isFetchingNextPage,
 
     return (
         <div className="w-full py-6 px-24">
-            <CategoryList data={data} />
-            <CategoryFooter isFetchingNextPage={isFetchingNextPage} handleLoadMore={handleLoadMore} />
+            <CategoryList data={posts} />
+            {/* <CategoryFooter isFetchingNextPage={isFetchingNextPage} handleLoadMore={handleLoadMore} /> */}
         </div>
     );
 }

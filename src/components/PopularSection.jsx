@@ -1,5 +1,5 @@
 import { useMovies } from "../hooks/useMovies";
-import Category from "./category";
+import Category from "./category-movie";
 
 
 export default function PopularMovie() {

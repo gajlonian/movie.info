@@ -10,7 +10,7 @@ export const useScrollVisibility = () => {
 
         const handleScroll = () => {
             const currentScrollPosition = window.pageYOffset;
-            setVisible(prevPositionScroll > currentScrollPosition || currentScrollPosition < 50);
+            setVisible(prevPositionScroll > currentScrollPosition || currentScrollPosition < 60);
             setIsBehaviorTriggered(prevPositionScroll > 60);
             prevPositionScroll = currentScrollPosition;
 
