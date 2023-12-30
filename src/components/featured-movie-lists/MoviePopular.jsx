@@ -1,12 +1,13 @@
-import { useMovies } from "../../hooks/useMovies";
+import {  usePosts } from "../../hooks/usePosts";
 import ContentList from "../content-list";
 
-export default function NowPlayingMovie() {
-    const { posts, isError, isLoading, fetchNextPage, isFetchingNextPage } = useMovies(
-        "nowPlayingMovie",
-        "now_playing"
+export default function MoviePopular() {
+    const { posts, isError, isLoading, fetchNextPage, isFetchingNextPage } = usePosts(
+        "popularMovie",
+        'movie',
+        "popular"
     );
-    
+
     return (
         <ContentList
             data={posts}

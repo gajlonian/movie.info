@@ -1,10 +1,10 @@
 import { EnpointBuilder } from "./utils/EndpointBuilder";
 import { makeRequest } from "./utils/MakeRequest";
 
-class MovieService {
+class ContentService {
     constructor() {
         this.makeRequest = makeRequest;
-        this.defaultLanguage = 'en-US';
+        this.defaultLanguage = "en-US";
         this.endpoints = new EnpointBuilder(this.defaultLanguage);
     }
 
@@ -14,8 +14,8 @@ class MovieService {
      * @param {string} language - The language code in format : 'en-US', 'fr-Fr', etc
      * @returns Promise<Object>
      */
-    getMovies(filter, page = 1, language = this.defaultLanguage) {
-        const endpoint = this.endpoints.moviesEndpoint(filter, page, language);
+    getContent(contentType, filter, page = 1, language = this.defaultLanguage) {
+        const endpoint = this.endpoints.contentEndpoint(contentType, filter, page, language);
         return this.makeRequest(endpoint);
     }
 
@@ -33,10 +33,10 @@ class MovieService {
      * @param {string} language - The language code in format : 'en-US', 'fr-Fr', etc
      * @returns Promise<Object>
      */
-    getTrendingMovie(filter, language = this.defaultLanguage) {
-        const endpoint = this.endpoints.trendingMoviesEndpoint(filter,language);
+    getTrending(contentType, filter, language = this.defaultLanguage) {
+        const endpoint = this.endpoints.trendingEndpoint(contentType, filter, language);
         return this.makeRequest(endpoint);
     }
 }
 
-export default MovieService;
+export default ContentService;

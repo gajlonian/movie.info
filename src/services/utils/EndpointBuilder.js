@@ -1,17 +1,17 @@
 export class EnpointBuilder {
-    constructor(defaultLanguage = 'en-US') {
-        this.defaultLanguage = defaultLanguage
+    constructor(defaultLanguage = "en-US") {
+        this.defaultLanguage = defaultLanguage;
     }
 
-    moviesEndpoint(filter, page=1, language=this.defaultLanguage) {
-        return `movie/${filter}?language=${language}&page=${page}`
+    contentEndpoint(contentType,filter, page = 1, language = this.defaultLanguage) {
+        return `${contentType}/${filter}?language=${language}&page=${page}`;
     }
 
-    movieDetailEndpoint(movieId, language=this.defaultLanguage) {
-        return `movie/${movieId}?language=${language}`
+    movieDetailEndpoint(movieId, language = this.defaultLanguage) {
+        return `movie/${movieId}?language=${language}`;
     }
 
-    trendingMoviesEndpoint (filter, language=this.defaultLanguage) {
-        return `trending/movie/${filter}?language=${language}`
+    trendingEndpoint(contentType, filter, language = this.defaultLanguage) {
+        return `trending/${contentType}/${filter}?language=${language}`;
     }
 }

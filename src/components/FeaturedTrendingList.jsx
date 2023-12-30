@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { useTrendingMovie } from "../../hooks/useTrendingMovie";
-import Loading from "../common/Loading";
-import AlertError from "../common/AlertError";
-import ContentList from "../content-list";
+import React, { useState } from "react";
+import { useTrending } from "../hooks/useTrending";
+import Loading from "./common/Loading";
+import AlertError from "./common/AlertError";
+import ContentList from './content-list'
 
-export default function TrendingMovie() {
-    const [filter, setFilter] = useState("day");
-    const { posts, isError, isLoading } = useTrendingMovie(filter);
+export default function FeaturedTrendingList({ keyword, contentType }) {
+    const [filter, setFilter] = useState('day')
+    const { posts, isLoading, isError } = useTrending(keyword, contentType, filter);
 
     if (isLoading) {
         return <Loading height={"h-screen"} />;
@@ -14,7 +14,6 @@ export default function TrendingMovie() {
     if (isError) {
         return <AlertError />;
     }
-
     return (
         <div>
             <Filter filter={filter} setFilter={setFilter} />
@@ -32,7 +31,7 @@ function Filter({ filter, setFilter }) {
     );
 }
 
-function FilterItem({ buttonText, filter, setFilter }) {
+const FilterItem = React.memo(({ buttonText, filter, setFilter }) => {
     const handleClick = () => {
         setFilter(buttonText.toLowerCase());
     };
@@ -45,4 +44,4 @@ function FilterItem({ buttonText, filter, setFilter }) {
             {buttonText}
         </button>
     );
-}
+});

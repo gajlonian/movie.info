@@ -1,16 +1,13 @@
-import { useMovies } from "../../hooks/useMovies";
-import { useTvShow } from "../../hooks/useTvShow";
+import { usePosts } from "../../hooks/usePosts";
 import ContentList from "../content-list";
 
 export default function UpcomingMovie() {
-    const { posts, isError, isLoading, isFetchingNextPage, fetchNextPage } = useMovies(
+    const { posts, isError, isLoading, isFetchingNextPage, fetchNextPage } = usePosts(
         "upcomingMovie",
+        "movie",
         "upcoming"
     );
-
-    const {posts: data} = useTvShow('popularList', 'popular')
-    console.log(data);
-
+    console.log(posts);
     return (
         <ContentList
             data={posts}

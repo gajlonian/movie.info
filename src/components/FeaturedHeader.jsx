@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function FeaturedHeader ({ items, setView, setActive }) {
+export default function FeaturedHeader({ items, setView, setActive, sectionName }) {
     const [activeItem, setActiveItem] = useState(items[0].viewName);
 
     const handleClick = (view) => {
@@ -10,17 +10,20 @@ export default function FeaturedHeader ({ items, setView, setActive }) {
     };
 
     return (
-        <ul className="text-white flex gap-8 mx-24 py-6 border-solid border-b-2 border-red">
-            {items.map((item) => (
-                <HeaderItem
-                    key={item.viewName}
-                    viewName={item.viewName}
-                    onClick={handleClick}
-                    itemText={item.itemText}
-                    activeItem={activeItem}
-                />
-            ))}
-        </ul>
+        <div className="mx-24  border-solid border-b-2 border-red flex flex-row items-center justify-between py-6">
+            <ul className="text-white flex gap-8">
+                {items.map((item) => (
+                    <HeaderItem
+                        key={item.viewName}
+                        viewName={item.viewName}
+                        onClick={handleClick}
+                        itemText={item.itemText}
+                        activeItem={activeItem}
+                    />
+                ))}
+            </ul>
+            <h1 className="text-white text-xl opacity-50">{sectionName}</h1>
+        </div>
     );
 }
 

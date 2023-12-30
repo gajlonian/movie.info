@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FeaturedHeader from "../components/FeaturedHeader";
-import FeaturedMovieSection from "../components/featured-movie-lists/FeaturedMovieSection";
+import FeaturedMovieView from "../components/featured-movie-lists/FeaturedMovieView";
 
 export default function FeaturedMovies() {
     const [view, setView] = useState("trending"); 
@@ -21,7 +21,7 @@ export default function FeaturedMovies() {
     ];
 
     return <>
-        <FeaturedHeader items={items} setView={handleSetView} setActive={handleSetActive} />
-        <FeaturedMovieSection view={view} />
+        <FeaturedHeader items={items} setView={handleSetView} setActive={handleSetActive}  sectionName={'Movies'}/>
+        <FeaturedMovieView view={view} />
     </>;
 }

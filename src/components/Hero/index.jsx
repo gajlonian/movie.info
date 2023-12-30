@@ -1,12 +1,12 @@
 import { imageService } from "../../services/imageService";
 import { StyledHero } from "../../styles/hero";
 import Banner from "../Banner";
-import { useTrendingMovie } from "../../hooks/useTrendingMovie";
+import { useTrending } from "../../hooks/useTrending";
 import AlertError from "../common/AlertError";
 import Loading from "../common/Loading";
 
 export default function Hero() {
-    const { posts, isLoading, isError } = useTrendingMovie();
+    const { posts, isLoading, isError } = useTrending('trendingMovie', 'movie');
 
     if (isLoading) {
         return <Loading height={'h-screen'} />
