@@ -9,32 +9,32 @@ class ContentService {
     }
 
     /**
-     * @param {string} filter - For example: popular, upcoming, ...
+     * @param {string} filter - such as popular, upcoming, ...
      * @param {number} page
-     * @param {string} language - The language code in format : 'en-US', 'fr-Fr', etc
+     * @param {string} language - such as 'en-US', 'fr-Fr', etc
      * @returns Promise<Object>
      */
-    getContent(contentType, filter, page = 1, language = this.defaultLanguage) {
-        const endpoint = this.endpoints.contentEndpoint(contentType, filter, page, language);
+    getContent(mediaType, filter, page = 1, language = this.defaultLanguage) {
+        const endpoint = this.endpoints.contentEndpoint(mediaType, filter, page, language);
         return this.makeRequest(endpoint);
     }
 
     /**
      * @param {number} movieId
-     * @param {string} language - The language code in format : 'en-US', 'fr-Fr', etc
+     * @param {string} language - such as 'en-US', 'fr-Fr', etc
      * @returns Promise<Object>
      */
-    getMovieDetail(movieId, language = this.defaultLanguage) {
-        const endpoint = this.endpoints.movieDetailEndpoint(movieId, language);
+    getDetail(mediaType, postId, language = this.defaultLanguage) {
+        const endpoint = this.endpoints.detailEndpoint(mediaType, postId, language);
         return this.makeRequest(endpoint);
     }
 
     /**
-     * @param {string} language - The language code in format : 'en-US', 'fr-Fr', etc
+     * @param {string} language - such as 'en-US', 'fr-Fr', etc
      * @returns Promise<Object>
      */
-    getTrending(contentType, filter, language = this.defaultLanguage) {
-        const endpoint = this.endpoints.trendingEndpoint(contentType, filter, language);
+    getTrending(mediaType, filter, language = this.defaultLanguage) {
+        const endpoint = this.endpoints.trendingEndpoint(mediaType, filter, language);
         return this.makeRequest(endpoint);
     }
 }

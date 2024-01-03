@@ -1,4 +1,4 @@
-import ContentItem from "./Item";
+import ContentItem from "./ContentItem";
 
 export default function ListItem({data}) {
     return (

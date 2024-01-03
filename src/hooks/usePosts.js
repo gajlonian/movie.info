@@ -1,12 +1,12 @@
 import { useInfiniteQuery } from "react-query";
 import ContentService from "../services/ContentService";
 
-export function usePosts(key, contentType, filter) {
+export function usePosts(key, mediaType, filter) {
     let posts = [];
     const movie = new ContentService();
     const { data, isLoading, isError, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
-        queryKey: [key, contentType, filter],
-        queryFn: ({ pageParam = 1 }) => movie.getContent(contentType, filter, pageParam),
+        queryKey: [key, mediaType, filter],
+        queryFn: ({ pageParam = 1 }) => movie.getContent(mediaType, filter, pageParam),
         getNextPageParam: (lastPage, allPages) => {
             return allPages.length + 1;
         },

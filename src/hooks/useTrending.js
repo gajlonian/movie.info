@@ -1,11 +1,11 @@
 import { useQuery } from "react-query";
 import ContentService from "../services/ContentService";
 
-export const useTrending = (key, contentType, filter = "day") => {
+export const useTrending = (key, mediaType, filter = "day") => {
     const movie = new ContentService();
     const { data, isLoading, isError } = useQuery({
-        queryKey: [key, contentType, filter],
-        queryFn: () => movie.getTrending(contentType, filter),
+        queryKey: [key, mediaType, filter],
+        queryFn: () => movie.getTrending(mediaType, filter),
     });
 
     const posts = data?.results;
