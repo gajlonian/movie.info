@@ -1,12 +1,15 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { usePostDetail } from "../../hooks/usePostDetail";
+import { useNavigate } from "react-router-dom";
 import { imageService } from "../../services/imageService";
 
-export default function ContentItem({ item }) {
-    const navigate = useNavigate()
+export default function ContentItem({ item, mediaType }) {
+    const navigate = useNavigate();
+
     const handleClick = () => {
-        navigate(`/${item.media_type}/${item.id}`)
-    }
+        if (item.media_type) {
+            return navigate(`/${item.media_type}/${item.id}`);
+        }
+        return navigate(`/${mediaType}/${item.id}`);
+    };
 
     return (
         <li className="cursor-pointer" onClick={handleClick}>

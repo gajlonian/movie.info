@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function Loading({ height }) {
+export default function Loading({ height, bgColor }) {
     return (
-        <div className={`w-full ${height} flex justify-center items-center`}>
+        <div className={`w-full ${height} ${bgColor} flex justify-center items-center`}>
             <div aria-label="Loading..." role="status">
                 <svg className="animate-spin w-8 h-8 fill-white" viewBox="3 3 18 18">
                     <path

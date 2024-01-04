@@ -14,11 +14,13 @@ export function usePosts(key, mediaType, filter) {
     if (!isLoading && !isError) {
         posts = data?.pages?.map((page) => page.results).flat();
     }
+
     return {
         posts,
         isLoading,
         fetchNextPage,
         isError,
         isFetchingNextPage,
+        mediaType: mediaType.toString()
     };
 }

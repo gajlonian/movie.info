@@ -1,6 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LeftIcon() {
+    const navigate = useNavigate()
+    const handleClick = () => {
+        navigate(-1)
+    }
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -8,6 +13,7 @@ export default function LeftIcon() {
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
+            onClick={handleClick}
         >
             <path
                 stroke-linecap="round"
@@ -16,12 +22,5 @@ export default function LeftIcon() {
                 d="M10 19l-7-7 7-7M3 12h17"
             />
         </svg>
-
-        // <div className="absolute top-0 py-6">
-        //     <div className="relative cursor-pointer hover:scale-105">
-        //         <div className="absolute w-4 h-4 rotate-45 border-b-4 border-l-4 border-solid"></div>
-        //         <div className="absolute top-1.5 h-1 w-6 bg-white"></div>
-        //     </div>
-        // </div>
     );
 }

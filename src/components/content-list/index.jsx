@@ -1,9 +1,8 @@
 import AlertError from "../common/AlertError";
 import Loading from "../common/Loading";
-import CategoryFooter from './CategoryFooter'
 import ListItem from "./ListItem";
 
-export default function ContentList({ data, isLoading, isError, isFetchingNextPage, fetchNextPage }) {
+export default function ContentList({ data, isLoading, isError, isFetchingNextPage, fetchNextPage, mediaType }) {
     const posts = data?.slice(0,12)
     const handleLoadMore = () => {
         if (!isFetchingNextPage) {
@@ -19,8 +18,7 @@ export default function ContentList({ data, isLoading, isError, isFetchingNextPa
 
     return (
         <div className="w-full py-6 px-24">
-            <ListItem data={posts} />
-            {/* <CategoryFooter isFetchingNextPage={isFetchingNextPage} handleLoadMore={handleLoadMore} /> */}
+            <ListItem data={posts} mediaType={mediaType} />
         </div>
     );
 }

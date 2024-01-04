@@ -4,7 +4,7 @@ import ContentList from "../content-list";
 import { usePosts } from "../../hooks/usePosts";
 
 export default function TvShowPopularSection() {
-    const { posts, isError, isLoading } = usePosts("tvShowPopular", 'tv', "popular");
+    const { posts, isError, isLoading, mediaType } = usePosts("tvShowPopular", 'tv', "popular");
 
-    return <ContentList data={posts} isError={isError} isLoading={isLoading} />;
+    return <ContentList data={posts} isError={isError} isLoading={isLoading} mediaType={mediaType} />;
 }

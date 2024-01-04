@@ -2,7 +2,7 @@ import {  usePosts } from "../../hooks/usePosts";
 import ContentList from "../content-list";
 
 export default function NowPlayingMovie() {
-    const { posts, isError, isLoading, fetchNextPage, isFetchingNextPage } = usePosts(
+    const { posts, isError, isLoading, mediaType } = usePosts(
         "nowPlayingMovie",
         'movie',
         "now_playing"
@@ -13,8 +13,7 @@ export default function NowPlayingMovie() {
             data={posts}
             isError={isError}
             isLoading={isLoading}
-            isFetchingNextPage={isFetchingNextPage}
-            fetchNextPage={fetchNextPage}
+            mediaType={mediaType}
         />
     );
 }

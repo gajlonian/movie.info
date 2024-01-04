@@ -7,6 +7,6 @@ export const usePostDetail = (key, mediaType, postId) => {
         queryKey: [key, mediaType, postId],
         queryFn: () => service.getDetail(mediaType, postId),
     });
-
+    
     return { data, isLoading, isError };
 };

@@ -1,10 +1,11 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { usePostDetail } from "../hooks/usePostDetail";
 import { imageService } from "../services/imageService";
 import { formatHour } from "../helpers/formatHour";
 import Ratings from "../components/Ratings";
-import LeftIcon from "../components/LeftIcon";
+import LeftIcon from "../components/ui/LeftIcon";
+import Loading from "../components/common/Loading";
+import AlertError from "../components/common/AlertError";
 
 export default function PostDetail() {
     const { media_type, id } = useParams();
@@ -12,11 +13,14 @@ export default function PostDetail() {
     const { data, isError, isLoading } = usePostDetail(keyword, media_type.toString(), id.toString());
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <Loading height={"h-screen"} bgColor={"bg-black"} />;
+    }
+    if (isError) {
+        return <AlertError />;
     }
     // console.log(data);
     const bgImageUrl = imageService("original", data.backdrop_path);
-    const poster = imageService("w500", data.poster_path);
+    const contentTitle = media_type === "movie" ? data.title : data.name;
 
     return (
         <div
@@ -28,37 +32,79 @@ export default function PostDetail() {
                     <div className="absolute top-0 pt-8 opacity-80 hover:scale-105 hover:opacity-100">
                         <LeftIcon />
                     </div>
-                    <Card imgUrl={poster} data={data} />
+                    <div className="flex flex-col w-2/4">
+                        <h1 className="text-3xl font-semibold">{contentTitle}</h1>
+                        {media_type === "movie" && (
+                            <DurationAndDate date={data.release_date} runtime={data.runtime} />
+                        )}
+                        <Ratings note={data.vote_average} />
+                        <p className="my-4 text-base">{data.overview}</p>
+                        {media_type === "tv" && (
+                            <SeasonsAndEpisodes
+                                seasons={data.number_of_seasons}
+                                episodes={data.number_of_episodes}
+                                runtime={data.episode_run_time}
+                            />
+                        )}
+                        <Genres genres={data.genres} />
+                        <BtnAction />
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
 
-function Card({ data }) {
-    const duration = formatHour(data.runtime);
-    const genres = data.genres.map((genre) => genre.name).join(", ");
+function Genres({ genres }) {
+    const genre = genres.map((genre) => genre.name).join(", ");
+    return <ContentInfo name={"Genres"} info={genre} />;
+}
 
+function DurationAndDate({ date, runtime }) {
+    const duration = formatHour(runtime);
     return (
-        <div className="flex flex-col w-2/4">
-            <h1 className="text-3xl font-semibold">{data.title}</h1>
-            <div className="opacity-80 text-sm flex gap-3 py-2">
-                <p>{data.release_date}</p>
-                <p>|</p>
-                <p>{duration}</p>
-            </div>
-            <Ratings note={data.vote_average} />
-            <p className="my-4 text-base">{data.overview}</p>
-            <p>
-                <span className="opacity-80 text-sm">Genres:</span> {genres}
-            </p>
-            <div className="mt-16 flex gap-4">
-                <button className="font-sm h-10 w-36 border border-solid border-white rounded-full hover:bg-white hover:text-black hover:font-semibold">
-                    Add to List
-                </button>
-                <button className="font-sm bg-red h-10 w-36 bg-red rounded-full hover:bg-opacity-70 hover:font-semibold">
-                    Watch Trailer
-                </button>
+        <div className="opacity-80 text-sm flex gap-3 py-2">
+            <p>{date}</p>
+            <p>|</p>
+            <p>{duration}</p>
+        </div>
+    );
+}
+
+function BtnAction() {
+    return (
+        <div className="mt-16 flex gap-4">
+            <button className="font-sm h-10 w-36 border border-solid border-white rounded-full hover:bg-white hover:text-black hover:font-semibold">
+                Add to List
+            </button>
+            <button className="font-sm bg-red h-10 w-36 bg-red rounded-full hover:bg-opacity-70 hover:font-semibold">
+                Watch Trailer
+            </button>
+        </div>
+    );
+}
+
+function SeasonsAndEpisodes({ seasons, episodes, runtime }) {
+    return (
+        <div className="">
+            <ContentInfo name={"Seasons"} info={seasons} />
+            <ContentInfo name={"Episodes"} info={episodes} runtime={runtime} />
+        </div>
+    );
+}
+
+function ContentInfo({ info, name, runtime }) {
+    const runtimeView = name === "Episodes" && runtime > 0;
+    return (
+        <div className="text-md pb-1 flex gap-6">
+            <p className="opacity-70 w-20">{name}</p>
+            <div className="flex gap-8">
+                <p className="font-semibold">{info}</p>
+                {runtimeView && (
+                    <p className="opacity-70">
+                        duration: <span className="font-semibold">{runtime}m</span>
+                    </p>
+                )}
             </div>
         </div>
     );
