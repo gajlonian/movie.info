@@ -8,7 +8,7 @@ export default function FeaturedMovieView({ view }) {
     const MovieTrending = lazy(() => import("./MovieTrending"));
     const MovieUpcoming = lazy(() => import("./MovieUpcoming"));
 
-    switch (view) {
+    switch (view.viewName) {
         case "nowPlaying":
             Component = <MovieNowPlaying />;
             break;

@@ -1,36 +1,25 @@
-import React, { useState } from "react";
 import FeaturedHeader from "../components/FeaturedHeader";
-import FeaturedTvShowView from '../components/featured-tvShow-lists/FeaturedTvShowView'
+import FeaturedTvShowView from "../components/featured-tvShow-lists/FeaturedTvShowView";
+import { useActiveView } from "../hooks/useActiveView";
 
 export default function FeaturedTvShows() {
-    const [view, setView] = useState("trending");
-    const [activeItem, setActiveItem] = useState('trending')
+    const { handleSetView, view } = useActiveView("tvShovView");
+    const items = [
+        { viewName: "trending", itemText: "Trending" },
+        { viewName: "airingToday", itemText: "Airing Today" },
+        { viewName: "onTheAir", itemText: "On The Air" },
+        { viewName: "popular", itemText: "Popular" },
+        { viewName: "topRated", itemText: "Top Rated" },
+    ];
     return (
         <>
-            <Header setView={setView} setActiveItem={setActiveItem} />
+            <FeaturedHeader
+                items={items}
+                view={view}
+                setView={handleSetView}
+                sectionName={"Tv Shows"}
+            />
             <FeaturedTvShowView view={view} />
         </>
     );
-}
-
-function Header({setView,setActiveItem}) {
-    
-    const handleSetActive = (viewName) => {
-        setActiveItem(viewName);
-    };
-
-    const handleSetView = (viewName) => {
-        setView(viewName);
-    };
-
-    const items = [
-        {viewName: 'trending', itemText: 'Trending'},
-        {viewName: 'airingToday', itemText: 'Airing Today'},
-        {viewName: 'onTheAir', itemText: 'On The Air'},
-        {viewName: 'popular', itemText: 'Popular'},
-        {viewName: 'topRated', itemText: 'Top Rated'},
-        
-    ]
-
-    return <FeaturedHeader items={items} setActive={handleSetActive} setView={handleSetView} sectionName={'Tv Shows'} />
 }

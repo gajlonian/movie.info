@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useTrending } from "../hooks/useTrending";
 import Loading from "./common/Loading";
 import AlertError from "./common/AlertError";
-import ContentList from './content-list'
+import ContentList from "./content-list";
+import { useTrendingFilter } from "../hooks/useTrendingFilter";
 
 export default function FeaturedTrendingList({ keyword, contentType }) {
-    const [filter, setFilter] = useState('day')
+    const {filter, setFilter} = useTrendingFilter(keyword)
     const { posts, isLoading, isError } = useTrending(keyword, contentType, filter);
 
     if (isLoading) {

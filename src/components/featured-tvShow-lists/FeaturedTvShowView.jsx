@@ -9,7 +9,7 @@ export default function FeaturedTvShowView ({ view }) {
     const TvShowAiringToday = lazy(() => import("./TvShowAiringToday"));
     const TvShowTopRated = lazy(() => import("./TvShowTopRated"));
 
-    switch (view) {
+    switch (view.viewName) {
         case "popular":
             Component = TvShowPopular;
             break;

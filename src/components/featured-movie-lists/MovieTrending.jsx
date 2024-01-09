@@ -3,7 +3,7 @@ import FeaturedTrendingList from "../FeaturedTrendingList";
 export default function TrendingSection() {
     return (
         <FeaturedTrendingList
-            key={"trendingMovie"}
+            keyword={"trendingMovie"}
             contentType={"movie"}
         />
     );

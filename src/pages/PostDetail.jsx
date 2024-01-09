@@ -3,9 +3,9 @@ import { usePostDetail } from "../hooks/usePostDetail";
 import { imageService } from "../services/imageService";
 import { formatHour } from "../helpers/formatHour";
 import Ratings from "../components/Ratings";
-import LeftIcon from "../components/ui/LeftIcon";
 import Loading from "../components/common/Loading";
 import AlertError from "../components/common/AlertError";
+import { Suspense, lazy } from "react";
 
 export default function PostDetail() {
     const { media_type, id } = useParams();
@@ -22,6 +22,8 @@ export default function PostDetail() {
     const bgImageUrl = imageService("original", data.backdrop_path);
     const contentTitle = media_type === "movie" ? data.title : data.name;
 
+    const LeftIcon = lazy(() => import("../components/ui/LeftIcon"));
+
     return (
         <div
             className={`h-screen w-full bg-no-repeat bg-center bg-cover text-white`}
@@ -29,16 +31,20 @@ export default function PostDetail() {
         >
             <div className="w-full h-full bg-black bg-opacity-70">
                 <div className="h-full w-full flex items-center mx-24">
-                    <div className="absolute top-0 pt-8 opacity-80 hover:scale-105 hover:opacity-100">
-                        <LeftIcon />
-                    </div>
+                    <Suspense>
+                        <div className="absolute top-0 pt-8 opacity-80 hover:scale-105 hover:opacity-100">
+                            <LeftIcon />
+                        </div>
+                    </Suspense>
                     <div className="flex flex-col w-2/4">
-                        <h1 className="text-3xl font-semibold">{contentTitle}</h1>
+                        <h1 className="text-3xl font-semibold pb-3">{contentTitle}</h1>
                         {media_type === "movie" && (
                             <DurationAndDate date={data.release_date} runtime={data.runtime} />
                         )}
                         <Ratings note={data.vote_average} />
-                        <p className="my-4 text-base">{data.overview}</p>
+                        <div className="line-clamp-4 mb-3">
+                            <p className="my-4 text-sm">{data.overview}</p>
+                        </div>
                         {media_type === "tv" && (
                             <SeasonsAndEpisodes
                                 seasons={data.number_of_seasons}
@@ -63,7 +69,7 @@ function Genres({ genres }) {
 function DurationAndDate({ date, runtime }) {
     const duration = formatHour(runtime);
     return (
-        <div className="opacity-80 text-sm flex gap-3 py-2">
+        <div className="opacity-80 text-sm flex gap-3 pb-3">
             <p>{date}</p>
             <p>|</p>
             <p>{duration}</p>

@@ -1,18 +1,9 @@
-import React, { useCallback, useState } from "react";
 import FeaturedHeader from "../components/FeaturedHeader";
 import FeaturedMovieView from "../components/featured-movie-lists/FeaturedMovieView";
+import { useActiveView } from "../hooks/useActiveView";
 
 export default function FeaturedMovies() {
-    const [view, setView] = useState("trending");
-    const [activeItem, setActiveItem] = useState("trending");
-
-    const handleSetActive = (viewName) => {
-        setActiveItem(viewName);
-    };
-
-    const handleSetView = (viewName) => {
-        setView(viewName);
-    };
+    const { handleSetView, view } = useActiveView("movieView");
     
     const items = [
         { viewName: "trending", itemText: "Trending" },
@@ -23,12 +14,7 @@ export default function FeaturedMovies() {
 
     return (
         <>
-            <FeaturedHeader
-                items={items}
-                setView={handleSetView}
-                setActive={handleSetActive}
-                sectionName={"Movies"}
-            />
+            <FeaturedHeader items={items} view={view} setView={handleSetView} sectionName={"Movies"} />
             <FeaturedMovieView view={view} />
         </>
     );
