@@ -1,11 +1,14 @@
+import { Suspense, lazy } from "react";
 import { useParams } from "react-router-dom";
 import { usePostDetail } from "../hooks/usePostDetail";
 import { imageService } from "../services/imageService";
 import { formatHour } from "../helpers/formatHour";
+
+//components
+import ActionButtons from "../components/ActionButtons";
 import Ratings from "../components/Ratings";
 import Loading from "../components/common/Loading";
 import AlertError from "../components/common/AlertError";
-import { Suspense, lazy } from "react";
 
 export default function PostDetail() {
     const { media_type, id } = useParams();
@@ -20,7 +23,6 @@ export default function PostDetail() {
     }
     // console.log(data);
     const bgImageUrl = imageService("original", data.backdrop_path);
-    const contentTitle = media_type === "movie" ? data.title : data.name;
 
     const LeftIcon = lazy(() => import("../components/ui/LeftIcon"));
 
@@ -37,14 +39,12 @@ export default function PostDetail() {
                         </div>
                     </Suspense>
                     <div className="flex flex-col w-2/4">
-                        <h1 className="text-3xl font-semibold pb-3">{contentTitle}</h1>
+                        <Title data={data} mediaType={media_type} />
                         {media_type === "movie" && (
                             <DurationAndDate date={data.release_date} runtime={data.runtime} />
                         )}
                         <Ratings note={data.vote_average} />
-                        <div className="line-clamp-4 mb-3">
-                            <p className="my-4 text-sm">{data.overview}</p>
-                        </div>
+                        <Overview overview={data.overview} />
                         {media_type === "tv" && (
                             <SeasonsAndEpisodes
                                 seasons={data.number_of_seasons}
@@ -53,7 +53,7 @@ export default function PostDetail() {
                             />
                         )}
                         <Genres genres={data.genres} />
-                        <BtnAction />
+                        <ActionButtons />
                     </div>
                 </div>
             </div>
@@ -61,12 +61,25 @@ export default function PostDetail() {
     );
 }
 
-function Genres({ genres }) {
+const Title = ({ data, mediaType }) => {
+    const contentTitle = mediaType === "movie" ? data.title : data.name;
+    return <h1 className="text-3xl font-semibold pb-3">{contentTitle}</h1>;
+}
+
+const Overview = ({ overview }) => {
+    return (
+        <div className="line-clamp-4 mb-3">
+            <p className="my-4 text-sm">{overview}</p>
+        </div>
+    );
+}
+
+const Genres = ({ genres }) => {
     const genre = genres.map((genre) => genre.name).join(", ");
     return <ContentInfo name={"Genres"} info={genre} />;
 }
 
-function DurationAndDate({ date, runtime }) {
+const DurationAndDate = ({ date, runtime }) => {
     const duration = formatHour(runtime);
     return (
         <div className="opacity-80 text-sm flex gap-3 pb-3">
@@ -77,20 +90,7 @@ function DurationAndDate({ date, runtime }) {
     );
 }
 
-function BtnAction() {
-    return (
-        <div className="mt-16 flex gap-4">
-            <button className="font-sm h-10 w-36 border border-solid border-white rounded-full hover:bg-white hover:text-black hover:font-semibold">
-                Add to List
-            </button>
-            <button className="font-sm bg-red h-10 w-36 bg-red rounded-full hover:bg-opacity-70 hover:font-semibold">
-                Watch Trailer
-            </button>
-        </div>
-    );
-}
-
-function SeasonsAndEpisodes({ seasons, episodes, runtime }) {
+const SeasonsAndEpisodes = ({ seasons, episodes, runtime }) => {
     return (
         <div className="">
             <ContentInfo name={"Seasons"} info={seasons} />
@@ -99,7 +99,7 @@ function SeasonsAndEpisodes({ seasons, episodes, runtime }) {
     );
 }
 
-function ContentInfo({ info, name, runtime }) {
+const ContentInfo = ({ info, name, runtime }) => {
     const runtimeView = name === "Episodes" && runtime > 0;
     return (
         <div className="text-md pb-1 flex gap-6">
