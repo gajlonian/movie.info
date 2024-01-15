@@ -17,7 +17,7 @@ export default function ContentList({ data, isLoading, isError, isFetchingNextPa
     }
 
     return (
-        <div className="w-full py-6 px-24">
+        <div className="w-full py-6 md:px-24 px-8">
             <ListItem data={posts} mediaType={mediaType} />
         </div>
     );

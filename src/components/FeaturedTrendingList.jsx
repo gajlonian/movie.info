@@ -25,7 +25,7 @@ export default function FeaturedTrendingList({ keyword, contentType }) {
 
 function Filter({ filter, setFilter }) {
     return (
-        <ul className="text-white mx-24 pt-4 flex gap-8">
+        <ul className="text-white mx-8 md:mx-24 pt-4 flex gap-8">
             <FilterItem buttonText={"Day"} filter={filter} setFilter={setFilter} />
             <FilterItem buttonText={"Week"} filter={filter} setFilter={setFilter} />
         </ul>
